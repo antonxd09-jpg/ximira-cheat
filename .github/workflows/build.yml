@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p app/third_party
           git clone --depth=1 https://github.com/ocornut/imgui.git app/third_party/imgui
-          git clone --depth=1 --recurse-submodules https://github.com/jmpews/Dobby.git app/third_party/dobby
+          git clone https://github.com/jmpews/Dobby.git app/third_party/dobby
           git clone --depth=1 https://github.com/nlohmann/json.git app/third_party/nlohmann
           # nlohmann is header-only, needs to be at third_party/nlohmann/nlohmann/json.hpp
           mkdir -p app/third_party/nlohmann/nlohmann
