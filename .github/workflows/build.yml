@@ -24,13 +24,13 @@ jobs:
 
       - name: Clone third_party
         run: |
-          mkdir -p third_party
-          git clone --depth=1 https://github.com/ocornut/imgui.git third_party/imgui
-          git clone --depth=1 --recurse-submodules https://github.com/jmpews/Dobby.git third_party/dobby
-          git clone --depth=1 https://github.com/nlohmann/json.git third_party/nlohmann
+          mkdir -p app/third_party
+          git clone --depth=1 https://github.com/ocornut/imgui.git app/third_party/imgui
+          git clone --depth=1 --recurse-submodules https://github.com/jmpews/Dobby.git app/third_party/dobby
+          git clone --depth=1 https://github.com/nlohmann/json.git app/third_party/nlohmann
           # nlohmann is header-only, needs to be at third_party/nlohmann/nlohmann/json.hpp
-          mkdir -p third_party/nlohmann/nlohmann
-          cp third_party/nlohmann/single_include/nlohmann/json.hpp third_party/nlohmann/nlohmann/json.hpp || true
+          mkdir -p app/third_party/nlohmann/nlohmann
+          cp app/third_party/nlohmann/single_include/nlohmann/json.hpp third_party/nlohmann/nlohmann/json.hpp || true
 
       - name: Build APK
         run: gradle assembleRelease --no-daemon
