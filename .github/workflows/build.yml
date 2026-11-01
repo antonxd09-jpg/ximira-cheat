@@ -32,6 +32,11 @@ jobs:
           mkdir -p app/third_party/nlohmann/nlohmann
           cp app/third_party/nlohmann/single_include/nlohmann/json.hpp third_party/nlohmann/nlohmann/json.hpp || true
 
+
+      - name: Patch Dobby ARM64 asm
+        run: |
+          ASM=app/third_party/dobby/source/TrampolineBridge/ClosureTrampolineBridge/arm64/closure_bridge_arm64.asm
+          sed -i 's/@PAGE\b//g; s/@PAGEOFF\b//g' $ASM
       - name: Build APK
         run: gradle assembleRelease --no-daemon
         env:
