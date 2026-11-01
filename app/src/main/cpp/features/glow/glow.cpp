@@ -7,6 +7,8 @@
 #include <cmath>
 #include <chrono>
 
+namespace w2s = xim::render;
+
 namespace xim::features::glow {
 
 using namespace xim::render;
