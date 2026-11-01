@@ -161,7 +161,7 @@ void draw_world() {
             float s = pp.vignette_smooth.load(std::memory_order_relaxed);
             if (slider_float("Intensity", &i, 0.0f, 1.0f, "%.2f")) pp.vignette_intensity.store(i);
             if (slider_float("Smoothness", &s, 0.0f, 1.0f, "%.2f")) pp.vignette_smooth.store(s);
-            color_edit("Color", pp.vignette_color);
+            color_edit("Color", reinterpret_cast<float*>(&pp.vignette_color));
         }
     }
     ImGui::EndChild();

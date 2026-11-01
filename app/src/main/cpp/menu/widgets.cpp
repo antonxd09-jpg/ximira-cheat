@@ -106,7 +106,7 @@ void section_begin(const char* title, const char* subtitle) {
     ImGui::PushStyleColor(ImGuiCol_Border,  ImVec4(0.10f, 0.14f, 0.20f, 1.0f));
 
     ImGui::BeginChild(title, ImVec2(0, 0),
-                      ImGuiChildFlags_Border | ImGuiChildFlags_AutoResizeY);
+                      ImGuiChildFlags_Borders | ImGuiChildFlags_AutoResizeY);
 
     ImGui::TextColored(ImVec4(0.86f, 0.89f, 0.94f, 1.0f), "%s", title);
     if (subtitle)
