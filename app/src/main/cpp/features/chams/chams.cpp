@@ -268,12 +268,12 @@ void apply_to_target(const Target& t) {
         uintptr_t r = reinterpret_cast<uintptr_t>(renderer);
         // materialCount = 1
         int32_t one = 1;
-        write(reinterpret_cast<void*>(r + kMatCount), one);
+        write(r + kMatCount, one);
         // materialList — указатель на массив указателей; пишем [0] = material
         uintptr_t list_ptr = 0;
-        if (!read(reinterpret_cast<void*>(r + kMatList), list_ptr)) return;
+        if (!read(r + kMatList, list_ptr)) return;
         if (!list_ptr) return;
-        write(reinterpret_cast<void*>(list_ptr), material);
+        write(list_ptr, material);
     };
 
     patch(t.character);

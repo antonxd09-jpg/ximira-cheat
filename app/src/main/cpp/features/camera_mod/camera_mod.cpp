@@ -101,7 +101,7 @@ static void apply_fov(void* cam) {
     if (!g_cfg.fov_enabled.load(std::memory_order_relaxed)) {
         // восстановить оригинал, если мы его перезаписывали
         if (g_orig_fov_set && g_last_fov_written >= 0.0f) {
-            write(reinterpret_cast<void*>(c + kCamFov), g_orig_fov);
+            write(c + kCamFov, g_orig_fov);
             g_last_fov_written = -1.0f;
         }
         return;
@@ -110,7 +110,7 @@ static void apply_fov(void* cam) {
     // один раз запоминаем оригинал
     if (!g_orig_fov_set) {
         float cur = 0.0f;
-        if (read(reinterpret_cast<void*>(c + kCamFov), cur)) {
+        if (read(c + kCamFov, cur)) {
             g_orig_fov = cur;
             g_orig_fov_set = true;
             XLOG("camera_mod: captured orig fov=%.2f", cur);
@@ -122,7 +122,7 @@ static void apply_fov(void* cam) {
     if (want > 160.0f) want = 160.0f;
 
     if (std::fabs(want - g_last_fov_written) > 0.01f) {
-        if (write(reinterpret_cast<void*>(c + kCamFov), want)) {
+        if (write(c + kCamFov, want)) {
             g_last_fov_written = want;
             g_cfg.fov_last_written.store(static_cast<int>(want), std::memory_order_relaxed);
         }
@@ -143,8 +143,8 @@ static void apply_third_person(void* cam) {
     // оттуда transform — но чтобы не ходить по цепочке, часто в native Camera есть
     // прямой transform по 0x28. Если не подтверждено — пишем в 0x28.
     uintptr_t xform = 0;
-    if (!read(reinterpret_cast<void*>(c + 0x28), xform)) return;
-    if (!xform || !is_writable(reinterpret_cast<void*>(xform + kCamTransformOffsetX), 0x0C))
+    if (!read(c + 0x28, xform)) return;
+    if (!xform || !is_writable(reinterpret_cast<const void*>(xform + kCamTransformOffsetX, 0x0C))
         return;
 
     // если параметры не менялись с прошлого кадра — не трогаем память
@@ -164,9 +164,9 @@ static void apply_third_person(void* cam) {
     float oy = height;
     float oz = -dist;    // назад по forward
 
-    write(reinterpret_cast<void*>(xform + kCamTransformOffsetX), ox);
-    write(reinterpret_cast<void*>(xform + kCamTransformOffsetY), oy);
-    write(reinterpret_cast<void*>(xform + kCamTransformOffsetZ), oz);
+    write(xform + kCamTransformOffsetX, ox);
+    write(xform + kCamTransformOffsetY, oy);
+    write(xform + kCamTransformOffsetZ, oz);
 }
 
 // ---- shake ----
@@ -181,15 +181,15 @@ static void apply_shake(void* cam) {
     if (off) {
         if (!g_orig_shake_set) {
             uint8_t cur = 1;
-            if (read(reinterpret_cast<void*>(c + kCamShakeState), cur)) {
+            if (read(c + kCamShakeState, cur)) {
                 g_orig_shake = cur;
                 g_orig_shake_set = true;
             }
         }
         uint8_t zero = 0;
-        write(reinterpret_cast<void*>(c + kCamShakeState), zero);
+        write(c + kCamShakeState, zero);
     } else if (g_orig_shake_set) {
-        write(reinterpret_cast<void*>(c + kCamShakeState), g_orig_shake);
+        write(c + kCamShakeState, g_orig_shake);
     }
 }
 
@@ -214,9 +214,9 @@ void reset() {
     if (cam) {
         uintptr_t c = reinterpret_cast<uintptr_t>(cam);
         if (g_orig_fov_set)
-            write(reinterpret_cast<void*>(c + kCamFov), g_orig_fov);
+            write(c + kCamFov, g_orig_fov);
         if (g_orig_shake_set)
-            write(reinterpret_cast<void*>(c + kCamShakeState), g_orig_shake);
+            write(c + kCamShakeState, g_orig_shake);
     }
     g_last_fov_written = -1.0f;
     g_last_tp_dist = g_last_tp_height = g_last_tp_side = -1.0f;
