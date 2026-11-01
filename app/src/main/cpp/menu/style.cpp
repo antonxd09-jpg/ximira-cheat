@@ -80,9 +80,9 @@ void apply() {
 
     c[ImGuiCol_Tab]                  = ImVec4(0.07f, 0.09f, 0.12f, 1.0f);
     c[ImGuiCol_TabHovered]           = ImVec4(0.18f, 0.50f, 1.00f, 0.45f);
-    c[ImGuiCol_TabActive]            = ImVec4(0.18f, 0.50f, 1.00f, 0.80f);
-    c[ImGuiCol_TabUnfocused]         = ImVec4(0.07f, 0.09f, 0.12f, 1.0f);
-    c[ImGuiCol_TabUnfocusedActive]   = ImVec4(0.11f, 0.14f, 0.19f, 1.0f);
+    c[ImGuiCol_TabSelected]            = ImVec4(0.18f, 0.50f, 1.00f, 0.80f);
+    c[ImGuiCol_TabDimmed]         = ImVec4(0.07f, 0.09f, 0.12f, 1.0f);
+    c[ImGuiCol_TabDimmedSelected]   = ImVec4(0.11f, 0.14f, 0.19f, 1.0f);
 
     c[ImGuiCol_NavHighlight]         = ImVec4(0.18f, 0.50f, 1.00f, 1.00f);
 }
