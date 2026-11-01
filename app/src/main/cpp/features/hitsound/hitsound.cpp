@@ -13,7 +13,6 @@
 #include <jni.h>
 
 extern JavaVM* g_vm;
-extern JavaVM* g_vm;  // defined in ximira.cpp
 namespace xim::features::hitsound {
 
 // ---- config ----
@@ -29,6 +28,7 @@ const std::vector<std::string>& files() { return g_files; }
 // NativeBridge.playSound(String path, float volume) → создаёт MediaPlayer на java-стороне
 // NativeBridge.stopSound()                          → останавливает и освобождает
 // NativeBridge.ensureFolder(String path)            → создаёт папку
+   // определён в ximira.cpp
 
 static JavaVM* vm() { return g_vm; }
 
