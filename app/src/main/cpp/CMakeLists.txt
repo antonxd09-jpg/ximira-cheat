@@ -25,5 +25,5 @@ file(GLOB_RECURSE XIM_SRC CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/menu/*.cpp ${CMAKE_SOURCE_DIR}/menu/tabs/*.cpp
     ${CMAKE_SOURCE_DIR}/util/*.cpp)
 add_library(ximira SHARED ${XIM_SRC} ximira.cpp)
-target_include_directories(ximira PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(ximira PRIVATE ${CMAKE_SOURCE_DIR} ${TP}/imgui ${TP}/imgui/backends)
 target_compile_definitions(ximira PRIVATE XIM_ARM64=1 XIM_VERSION="1.1.0")
