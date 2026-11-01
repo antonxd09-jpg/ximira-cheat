@@ -1,7 +1,7 @@
 #include "core/hook.h"
 #include "util/log.h"
 
-#include "dobby.h"
+#include "shadowhook.h"
 
 namespace xim::hook {
 
@@ -9,7 +9,7 @@ bool install(uintptr_t target, void* replace, void** original) {
     if (!target || !replace) return false;
 
     void* orig = nullptr;
-    int rc = DobbyHook(reinterpret_cast<void*>(target), replace, &orig);
+    int rc = shadowhook_hook_func_addr(reinterpret_cast<void*>(target), replace, &orig);
 
     if (rc != 0) {
         XERR("DobbyHook failed at %p rc=%d", reinterpret_cast<void*>(target), rc);
@@ -24,7 +24,7 @@ bool install(uintptr_t target, void* replace, void** original) {
 
 bool uninstall(uintptr_t target) {
     if (!target) return false;
-    return DobbyDestroy(reinterpret_cast<void*>(target)) == 0;
+    return shadowhook_unhook(reinterpret_cast<void*>(target)) == 0;
 }
 
 } // namespace xim::hook
