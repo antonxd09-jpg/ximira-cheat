@@ -8,6 +8,8 @@
 #include "util/log.h"
 
 #include <atomic>
+#include <dlfcn.h>
+#include <time.h>
 #include <cstring>
 
 namespace xim::features::chams::bridge {
@@ -50,14 +52,14 @@ static bool resolve_helpers() {
 static const char* class_name_of(void* obj) {
     if (!obj || !p_class_get_name) return nullptr;
     uintptr_t klass = 0;
-    if (!read(obj, klass) || !klass) return nullptr;
+    if (!read(reinterpret_cast<uintptr_t>(obj), klass) || !klass) return nullptr;
     return p_class_get_name(reinterpret_cast<void*>(klass));
 }
 
 static bool class_chain_contains(void* obj, const char* want) {
     if (!obj || !want || !p_class_get_name || !p_class_get_parent) return false;
     uintptr_t k = 0;
-    if (!read(obj, k) || !k) return false;
+    if (!read(reinterpret_cast<uintptr_t>(obj), k) || !k) return false;
 
     void* klass = reinterpret_cast<void*>(k);
     for (int depth = 0; depth < 12 && klass; ++depth) {
