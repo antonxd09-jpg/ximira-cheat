@@ -27,3 +27,4 @@ file(GLOB_RECURSE XIM_SRC CONFIGURE_DEPENDS
 add_library(ximira SHARED ${XIM_SRC} ximira.cpp)
 target_include_directories(ximira PRIVATE ${CMAKE_SOURCE_DIR} ${TP}/imgui ${TP}/imgui/backends ${TP}/nlohmann/single_include)
 target_compile_definitions(ximira PRIVATE XIM_ARM64=1 XIM_VERSION="1.1.0")
+target_link_libraries(ximira imgui nlohmann_json android log GLESv2 GLESv3 EGL)
