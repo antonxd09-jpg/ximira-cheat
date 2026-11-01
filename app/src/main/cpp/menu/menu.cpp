@@ -1,4 +1,5 @@
 #include "menu/menu.h"
+#include <string>
 #include "menu/style.h"
 #include "menu/widgets.h"
 #include "menu/tabs/tabs.h"
@@ -31,7 +32,7 @@ static constexpr int kTabCount = IM_ARRAYSIZE(kTabs);
 
 static void draw_sidebar() {
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.047f, 0.063f, 0.09f, 1.0f));
-    ImGui::BeginChild("##sidebar", ImVec2(180, 0), ImGuiChildFlags_Border);
+    ImGui::BeginChild("##sidebar", ImVec2(180, 0), ImGuiChildFlags_Borders);
 
     ImGui::Dummy(ImVec2(0, 8));
 
@@ -95,7 +96,7 @@ static void draw_sidebar() {
 
     // кликабельная ссылка на телегу
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 8);
-    link("@skeetcod", kDevUrl);
+    widget::link("@skeetcod", kDevUrl);
 
     ImGui::EndChild();
     ImGui::PopStyleColor();
