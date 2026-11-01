@@ -122,7 +122,7 @@ static uintptr_t get_world_instance() {
 }
 
 // пройти по part-контейнеру net-объекта и вернуть компонент с заданным klass
-static uintptr_t find_component(uintptr_t net, void* klass) {
+uintptr_t find_component(uintptr_t net, void* klass) {
     if (!net || !klass) return 0;
 
     uintptr_t parts = 0;
