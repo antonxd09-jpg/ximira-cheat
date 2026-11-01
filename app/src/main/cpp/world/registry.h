@@ -28,4 +28,7 @@ uintptr_t model_from_net(uintptr_t net);
 // получить компонент-статы ylw от player
 uintptr_t stats_from_player(uintptr_t player);
 
+// generic: найти компонент по type_info на entity
+uintptr_t find_component(uintptr_t entity, void* type_info);
+
 } // namespace xim::world::reg
