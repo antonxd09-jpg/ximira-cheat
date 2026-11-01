@@ -144,7 +144,7 @@ static void apply_third_person(void* cam) {
     // прямой transform по 0x28. Если не подтверждено — пишем в 0x28.
     uintptr_t xform = 0;
     if (!read(c + 0x28, xform)) return;
-    if (!xform || !is_writable(reinterpret_cast<const void*>(xform + kCamTransformOffsetX, 0x0C))
+    if (!xform || !is_writable(reinterpret_cast<void*>(xform + kCamTransformOffsetX), 0x0C))
         return;
 
     // если параметры не менялись с прошлого кадра — не трогаем память
