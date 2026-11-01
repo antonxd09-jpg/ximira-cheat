@@ -11,6 +11,7 @@
 namespace xim::features::esp {
 
 using namespace xim::render;
+using w2s = xim::render::w2s;
 
 bool init() {
     if (!w2s::init()) { XERR("esp: w2s init failed"); return false; }

@@ -8,7 +8,7 @@
 #include "features/esp/config.h"
 #include "util/log.h"
 
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <dirent.h>
 #include <sys/stat.h>
