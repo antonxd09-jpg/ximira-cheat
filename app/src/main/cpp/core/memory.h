@@ -30,7 +30,7 @@ template <typename T>
 inline bool write(uintptr_t addr, const T& val) {
     if (!addr || !is_writable(reinterpret_cast<const void*>(addr), sizeof(T)))
         return false;
-    *reinterpret_cast<T*>(addr) = val;
+    __builtin_memcpy(reinterpret_cast<void*>(addr), &val, sizeof(T));
     return true;
 }
 
