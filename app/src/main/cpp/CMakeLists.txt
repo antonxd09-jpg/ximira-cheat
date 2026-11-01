@@ -13,9 +13,6 @@ add_library(imgui STATIC
     ${TP}/imgui/backends/imgui_impl_android.cpp)
 target_include_directories(imgui PUBLIC ${TP}/imgui ${TP}/imgui/backends)
 
-# shadowhook via its own CMakeLists
-set(SHADOWHOOK_BUILD_SHARED_LIBRARY OFF CACHE BOOL "" FORCE)
-add_subdirectory(${TP}/shadowhook/shadowhook shadowhook_build)
 
 # nlohmann
 add_library(nlohmann_json INTERFACE)
@@ -29,5 +26,4 @@ file(GLOB_RECURSE XIM_SRC CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/util/*.cpp)
 add_library(ximira SHARED ${XIM_SRC} ximira.cpp)
 target_include_directories(ximira PRIVATE ${CMAKE_SOURCE_DIR})
-target_link_libraries(ximira imgui shadowhook nlohmann_json android log GLESv3 EGL)
 target_compile_definitions(ximira PRIVATE XIM_ARM64=1 XIM_VERSION="1.1.0")

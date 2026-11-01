@@ -24,7 +24,6 @@ jobs:
           git clone --depth=1 https://github.com/ocornut/imgui.git app/third_party/imgui
           git clone --depth=1 https://github.com/nlohmann/json.git app/third_party/nlohmann
           # ShadowHook - prebuilt Android inline hook
-          git clone --depth=1 https://github.com/bytedance/android-inline-hook.git app/third_party/shadowhook
       - name: Build APK
         run: gradle assembleRelease --no-daemon
         env:
