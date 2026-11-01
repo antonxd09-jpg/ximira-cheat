@@ -30,7 +30,7 @@ bool install() {
     if (!target) { XERR("eglSwapBuffers not found"); return false; }
 
     bool ok = hook::install(
-        reinterpret_cast<uintptr_t>(target),
+        reinterpret_cast<void*>(target),
         reinterpret_cast<void*>(&hooked_swap),
         reinterpret_cast<void**>(&g_orig_swap));
 
