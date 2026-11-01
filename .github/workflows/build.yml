@@ -34,9 +34,7 @@ jobs:
 
 
       - name: Patch Dobby ARM64 asm
-        run: |
-          ASM=app/third_party/dobby/source/TrampolineBridge/ClosureTrampolineBridge/arm64/closure_bridge_arm64.asm
-          sed -i 's/@PAGE\b//g; s/@PAGEOFF\b//g' $ASM
+        run: bash .github/workflows/patch_dobby.sh
       - name: Build APK
         run: gradle assembleRelease --no-daemon
         env:
