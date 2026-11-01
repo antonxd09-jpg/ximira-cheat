@@ -8,7 +8,7 @@
 #include "features/esp/config.h"
 #include "util/log.h"
 
-#include <nlohmann/json.hpp>
+#include <json.hpp>
 
 #include <dirent.h>
 #include <sys/stat.h>
@@ -19,6 +19,8 @@
 
 using json = nlohmann::json;
 
+extern JavaVM* g_vm;
+extern JavaVM* g_vm;  // defined in ximira.cpp
 namespace xim::features::config {
 
 static const std::string kFolder = "/storage/emulated/0/Ximira/Configs/";
@@ -29,7 +31,6 @@ static std::vector<std::string> g_profiles;
 static std::mutex g_mutex;
 
 // ---- JNI (NativeBridge.setClipboard(String), getClipboard() → String) ----
-extern JavaVM* g_vm;
 
 static bool jni_set_clipboard(const std::string& text) {
     if (!g_vm) return false;
