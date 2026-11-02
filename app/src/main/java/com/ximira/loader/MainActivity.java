@@ -13,7 +13,7 @@ import android.widget.*;
 import java.io.*;
 
 public class MainActivity extends Activity {
-    static { try { System.loadLibrary("ximira"); } catch (Throwable t) { android.util.Log.e("ximira", "load fail: " + t); } }
+    // .so loads only in standoff2 process via injection
 
     private TextView statusText;
     private final Handler handler = new Handler(Looper.getMainLooper());
