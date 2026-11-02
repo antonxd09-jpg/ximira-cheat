@@ -64,11 +64,12 @@ public class MainActivity extends Activity {
                 // find libximira.so in app's native lib dir
                 String soSrc = getApplicationInfo().nativeLibraryDir + "/libximira.so";
                 String soDst = "/data/local/tmp/libximira.so";
-                String injector = "/sdcard/komarq_full/manualmap_injector";
+                String injectorSrc = "/sdcard/komarq_full/manualmap_injector";
+                String injector = "/data/local/tmp/manualmap_injector";
 
                 // copy so to tmp
                 Process cp = Runtime.getRuntime().exec(new String[]{"/system/bin/su", "-c",
-                        "cp " + soSrc + " " + soDst + " && chmod 777 " + soDst + " && chmod +x " + injector});
+                        "cp " + soSrc + " " + soDst + " && cp " + injectorSrc + " " + injector + " && chmod 777 " + soDst + " && chmod +x " + injector});
                 cp.waitFor();
 
                 // check standoff running
