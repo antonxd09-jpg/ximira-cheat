@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 
                 // copy so to tmp
                 Process cp = Runtime.getRuntime().exec(new String[]{"/system/bin/su", "-c",
-                        "cp " + soSrc + " " + soDst + " && chmod 777 " + soDst});
+                        "cp " + soSrc + " " + soDst + " && chmod 777 " + soDst + " && chmod +x " + injector});
                 cp.waitFor();
 
                 // check standoff running
