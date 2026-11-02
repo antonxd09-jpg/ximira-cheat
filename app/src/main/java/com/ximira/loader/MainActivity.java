@@ -26,16 +26,15 @@ public class MainActivity extends Activity {
     private static final int RED    = Color.rgb(255, 90, 90);
 
     private static String findSu() {
-        for (String p : new String[]{su,"/system/xbin/su","/su/bin/su","/sbin/su","/magisk/.core/bin/su"})
+        for (String p : new String[]{SU,"/system/xbin/su","/su/bin/su","/sbin/su","/magisk/.core/bin/su"})
             if (new java.io.File(p).exists()) return p;
         return "su";
     }
-    private String su;
+    private static final String SU = findSu();
 
     @Override
     protected void onCreate(Bundle s) {
         super.onCreate(s);
-        su = findSu();
         NativeBridge.setContext(this);
         getWindow().getDecorView().setBackgroundColor(BG);
 
@@ -76,12 +75,12 @@ public class MainActivity extends Activity {
                 String injector = "/data/local/tmp/manualmap_injector";
 
                 // copy so to tmp
-                Process cp = Runtime.getRuntime().exec(new String[]{su, "-c",
+                Process cp = Runtime.getRuntime().exec(new String[]{SU, "-c",
                         "cp " + soSrc + " " + soDst + " && cp " + injectorSrc + " " + injector + " && chmod 777 " + soDst + " && chmod +x " + injector});
                 cp.waitFor();
 
                 // check standoff running
-                Process ps = Runtime.getRuntime().exec(new String[]{su, "-c",
+                Process ps = Runtime.getRuntime().exec(new String[]{SU, "-c",
                         "pidof com.axlebolt.standoff2"});
                 String pid = new BufferedReader(new InputStreamReader(ps.getInputStream())).readLine();
                 ps.waitFor();
@@ -94,7 +93,7 @@ public class MainActivity extends Activity {
                 handler.post(() -> setStatus("⏳ Инжектирование...", MUTED));
 
                 // inject
-                Process inj = Runtime.getRuntime().exec(new String[]{su, "-c",
+                Process inj = Runtime.getRuntime().exec(new String[]{SU, "-c",
                         injector + " com.axlebolt.standoff2 " + soDst});
                 String out = new BufferedReader(new InputStreamReader(inj.getInputStream())).readLine();
                 int rc = inj.waitFor();
@@ -112,7 +111,7 @@ public class MainActivity extends Activity {
     private void stop() {
         new Thread(() -> {
             try {
-                Runtime.getRuntime().exec(new String[]{su, "-c",
+                Runtime.getRuntime().exec(new String[]{SU, "-c",
                         "killall manualmap_injector 2>/dev/null"}).waitFor();
                 handler.post(() -> setStatus("○ Остановлено", MUTED));
             } catch (Exception e) {}
